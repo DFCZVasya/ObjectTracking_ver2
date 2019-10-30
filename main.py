@@ -19,8 +19,8 @@ from sort import *
 tracker = Sort()
 memory = {}
 
-resolution = input('Enter Resolution: ')
-
+#resolution = input('Enter Resolution: ')
+resolution = '4k'
 if resolution == '4k':
 	line = [(2000, 0), (2050,3840)]
 elif resolution == 'hd':
@@ -117,13 +117,9 @@ while True:
 	blob = cv2.dnn.blobFromImage(frame, 1 / 255.0, (416, 416),
 		swapRB=True, crop=False)
 	net.setInput(blob)
-	#start = time.time()
 	###################################################################
 	layerOutputs = net.forward(ln)
 	####################################################################
-	#end = time.time()
-	###############################################################################################
-	#################################################
 	# initialize our lists of detected bounding boxes, confidences,
 	# and class IDs, respectively
 	boxes = []
@@ -182,15 +178,10 @@ while True:
 	indexIDs = []
 	c = []
 	bboxes = []
-	#previous = memory.copy()
-	#memory = {}
 
 	for track in tracks:
 		boxes.append([track[0], track[1], track[2], track[3]])
 		indexIDs.append(int(track[4]))
-		#memory[indexIDs[-1]] = boxes[-1]
-
-
 
 	if len(boxes) > 0:
 		i = int(0)
@@ -211,12 +202,8 @@ while True:
 			box.createNewID(bbox, allObjects)
 			allObjects.append(box)
 			i += 1
-			#	box.createNewID(bbox, allObjects)
 	else:
 		for object1 in allObjects:
-			#print(object1.bbox)
-			#print(object1.id)
-			#print(object1.probability)
 			ex = False
 			for bbox in bboxes:
 				b = bbox
@@ -261,46 +248,13 @@ while True:
 	print("--- %s seconds ---" % (time.time() - start_time))
 
 
-"""
-  #draw rectangle
+
+
 	if resolution == '4k':
-		#cv2.rectangle(frame, (0,100), (3840,100), (153, 255, 0), 220)
-	# draw counter
+
 		font = cv2.FONT_HERSHEY_SIMPLEX
-		#cv2.putText(frame, 'found car: ', (20,150), font, 4, (243, 132, 68), 6, cv2.LINE_AA)
-	# if counter >= 5:
-		#cv2.putText(frame, str(count), (670,165), cv2.FONT_HERSHEY_DUPLEX, 5.0, (128, 191, 255), 8)
-
-
-		#cv2.rectangle(frame, (10,100), (1200,350), (153, 255, 0), 100)
 		cv2.putText(frame, str(len(allObjects)), (50,50), font, 2, (243, 132, 68), 4, cv2.LINE_AA)
-	# if counter >= 5:
-		#cv2.putText(frame, str(count), (1620,165), cv2.FONT_HERSHEY_DUPLEX, 5.0, (128, 191, 255), 10)
 
-
-		#cv2.rectangle(frame, (10,100), (1200,450), (153, 255, 0), 100)
-		#cv2.putText(frame, 'found person: ', (1750,150), font, 4, (243, 132, 68), 6, cv2.LINE_AA)
-	# if counter >= 5:
-		#cv2.putText(frame, str(len(allObjects)), (2615,165), cv2.FONT_HERSHEY_DUPLEX, 5.0, (128, 191, 255), 10)
-
-		#cv2.putText(frame, 'found other: ', (2750,150), font, 4, (243, 132, 68), 6, cv2.LINE_AA)
-	# if counter >= 5:
-		#cv2.putText(frame, str(count), (3515,165), cv2.FONT_HERSHEY_DUPLEX, 5.0, (128, 191, 255), 10)
-	elif resolution == 'hd':
-		cv2.rectangle(frame, (10,20), (500,20),(153,255,0),100)
-
-		font = cv2.FONT_HERSHEY_SIMPLEX
-		# cv2.putText(frame, 'found ' +str(howto)+ ': ',(15,50), font, 2, (243,132,68), 5, cv2.LINE_AA)
-
-		# cv2.putText(frame, str(counter), (430,50), cv2.FONT_HERSHEY_DUPLEX, 2.0, (128,191,255),5)
-	# elif counter > 2:
-	# 	cv2.putText(frame, str(counter), (1220,200), cv2.FONT_HERSHEY_DUPLEX, 5.0, (0, 255, 255), 10)
-	# else:
-	# 	cv2.putText(frame, str(counter), (1220,200), cv2.FONT_HERSHEY_DUPLEX, 5.0, (0, 255, 0), 10)
-
-	# counter += 1
-
-	# saves image file
 	cv2.imwrite("output/frame-{}.png".format(frameIndex), frame)
 
 	# check if the video writer is None
@@ -323,13 +277,7 @@ while True:
 	# increase frame index
 	frameIndex += 1
 
-	#if frameIndex >= 4000: # limits the execution to the first 4000 frames
-	#	print("[INFO] cleaning up...")
-	#	writer.release()
-	#	vs.release()
-	#	exit()
-"""
 # release the file pointers
 print("[INFO] cleaning up...")
-#writer.release()
-#vs.release()
+writer.release()
+vs.release()
