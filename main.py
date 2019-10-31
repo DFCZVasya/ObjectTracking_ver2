@@ -205,7 +205,7 @@ while True:
 	if len(allObjects) == 0 and len(outBoxes) > 0:
 		for bbox in bboxes:
 			box = ObjectTracking(bbox[4])
-			bbox = bbox[:-2]
+			bbox = bbox[:-1]
 			box.createNewID(bbox, allObjects)
 			allObjects.append(box)
 	else:
@@ -213,7 +213,7 @@ while True:
 			ex = False
 			for bbox in bboxes:
 				b = bbox
-				bbox = bbox[:-2]
+				bbox = bbox[:-1]
 				k = object1.getIntersection(bbox)
 				if k > 0.5:
 					ex = False
@@ -248,7 +248,7 @@ while True:
 	if len(bboxes) > 0:
 		for bbox in bboxes:
 			box = ObjectTracking(bbox[4])
-			bbox = bbox[:-2]
+			bbox = bbox[:-1]
 			box.createNewID(bbox, allObjects)
 			allObjects.append(box)
 	print("--- %s seconds ---" % (time.time() - start_time))

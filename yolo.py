@@ -146,7 +146,7 @@ class YOLO(object):
             right = min(image.size[0], np.floor(right + 0.5).astype('int32'))
             #print(label, (left, top), (right, bottom))
             print(str(left) + ' ' + str(top) + ' ' + str(right) + ' ' + str(bottom) + ' ' + predicted_class + ' ' + str(score))
-            box = [left,top,right,bottom, predicted_class, score]
+            box = [left,top,right,bottom, predicted_class]
             outBoxes.append(box)
 
             #if top - label_size[1] >= 0:
