@@ -199,7 +199,7 @@ while True:
 			(w, h) = (int(box[2]), int(box[3]))
 			bbox = [x, y, w, h, box[4]]
 			bboxes.append(bbox)
-			i += 1
+			#i += 1
 			#cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (0,255,0), 2)
 
 	if len(allObjects) == 0 and len(outBoxes) > 0:
