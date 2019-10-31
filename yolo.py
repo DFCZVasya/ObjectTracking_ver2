@@ -149,20 +149,20 @@ class YOLO(object):
         for box in boxesForDelete:
             if box in outBoxes:
                 outBoxes.remove(box)
-                
+
         return outBoxes
 
     def close_session(self):
         self.sess.close()
 
 
-    def findSameBbox(self, boxes):
-        boxesForDelete = []
-        for box in boxes:
-            for box2 in boxes:
-                if getIntersection(box, box2) > 0.5 and getIntersection(box, box2) != 1:
-                    boxesForDelete.append(box2)
-        return boxesForDelete
+def findSameBbox(boxes):
+    boxesForDelete = []
+    for box in boxes:
+        for box2 in boxes:
+            if getIntersection(box, box2) > 0.5 and getIntersection(box, box2) != 1:
+                boxesForDelete.append(box2)
+    return boxesForDelete
 
 def getIntersection(bbox1, bbox2):
     oldx = range(bbox1[0], bbox1[2])
