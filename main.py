@@ -234,9 +234,11 @@ while True:
 							cc += 1
 
 			#draw a bounding box rectangle and label on the image
-
+			bbox = object1.getbbox()
+					if object1.getcount() == 50:
+						counter += 1
 			#color = [int(c) for c in COLORS[classIDs[i]]]
-			cv2.rectangle(frame, (object1.bbox[0], object1.bbox[1]), (object1.bbox[2], object1.bbox[3]), (255,0,0), 2)
+			cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (255,0,0), 2)
 
 			#color = [int(c) for c in COLORS[indexIDs[i] % len(COLORS)]]
 			#cv2.rectangle(frame, (object1.bbox[0], object1.bbox[1]), (object1.bbox[2] - object1.bbox[0], object1.bbox[3] - object1.bbox[1]), (255,0,0), 2)
@@ -251,15 +253,18 @@ while True:
 			bbox = bbox[:-1]
 			box.createNewID(bbox, allObjects)
 			allObjects.append(box)
+
+
 	print("--- %s seconds ---" % (time.time() - start_time))
 
 
 
 
 	if resolution == '4k':
-
+		text = str(len(allObjects)) + ' ' + str(counter)
 		font = cv2.FONT_HERSHEY_SIMPLEX
 		cv2.putText(frame, str(len(allObjects)), (50,50), font, 2, (243, 132, 68), 4, cv2.LINE_AA)
+		cv2.putText(frame, text, (100,200), font, 2, (0, 0, 255), 4, cv2.LINE_AA)
 
 	cv2.imwrite("output/frame-{}.png".format(frameIndex), frame)
 

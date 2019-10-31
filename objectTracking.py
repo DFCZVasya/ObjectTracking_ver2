@@ -4,9 +4,10 @@ class ObjectTracking(object) :
 
     def __init__(self, classID):
         self.classID = classID
-        self.probability = 0.1
+        self.probability = 1
         self.bbox = []
         self.id = 0
+        self.counter = 1
 
 
     def createNewID(self, bbox, allObjects):
@@ -27,15 +28,25 @@ class ObjectTracking(object) :
     def tracking(self, newbbox, k, ex):
         if ex == False:
             if k >= 0.5:
-                if self.probability <= 1.0:
-                    self.probability += 0.1
+                self.counter += 1
+                if self.probability <= 10:
+                    self.probability += 1
                     self.bbox = newbbox
                     return 0
         else:
-            self.probability -= 0.1
+            #self.counter -= 1
+            self.probability -= 1
             if self.probability <= 0:
                 return self.id
 
+    def getcount(self):
+        return self.counter
+
+    def getbbox(self):
+        return self.bbox
+
+    def getClassName(self):
+        return self.classID
 
     def getIntersection(self, newbbox):
         oldx = range(self.bbox[0], self.bbox[2])
