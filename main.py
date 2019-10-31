@@ -115,7 +115,7 @@ while True:
 	if W is None or H is None:
 		(H, W) = frame.shape[:2]
 
-	image = cv.cvtColor(frame, cv.COLOR_BGR2RGB);
+	image = cv2.cvtColor(frame, cv.COLOR_BGR2RGB);
 
 	outBoxes = yolo.detect_image(image)
 	# construct a blob from the input frame and then perform a forward
