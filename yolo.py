@@ -145,50 +145,54 @@ class YOLO(object):
             box = [left,top,right,bottom, predicted_class]
             outBoxes.append(box)
 
-        return outBoxes 
+        boxesForDelete = findSameBbox(outBoxes)
+        for box in boxesForDelete:
+            if box in outBoxes:
+                outBoxes.remove(box)
+                
+        return outBoxes
 
     def close_session(self):
         self.sess.close()
 
-"""
-def detect_video(yolo, video_path, output_path=""):
-    import cv2
-    vid = cv2.VideoCapture(video_path)
-    if not vid.isOpened():
-        raise IOError("Couldn't open webcam or video")
-    video_FourCC    = int(vid.get(cv2.CAP_PROP_FOURCC))
-    video_fps       = vid.get(cv2.CAP_PROP_FPS)
-    video_size      = (int(vid.get(cv2.CAP_PROP_FRAME_WIDTH)),
-                        int(vid.get(cv2.CAP_PROP_FRAME_HEIGHT)))
-    isOutput = True if output_path != "" else False
-    if isOutput:
-        print("!!! TYPE:", type(output_path), type(video_FourCC), type(video_fps), type(video_size))
-        out = cv2.VideoWriter(output_path, video_FourCC, video_fps, video_size)
-    accum_time = 0
-    curr_fps = 0
-    fps = "FPS: ??"
-    prev_time = timer()
-    while True:
-        return_value, frame = vid.read()
-        image = Image.fromarray(frame)
-        image = yolo.detect_image(image)
-        result = np.asarray(image)
-        curr_time = timer()
-        exec_time = curr_time - prev_time
-        prev_time = curr_time
-        accum_time = accum_time + exec_time
-        curr_fps = curr_fps + 1
-        if accum_time > 1:
-            accum_time = accum_time - 1
-            fps = "FPS: " + str(curr_fps)
-            curr_fps = 0
-        cv2.putText(result, text=fps, org=(3, 15), fontFace=cv2.FONT_HERSHEY_SIMPLEX,
-                    fontScale=0.50, color=(255, 0, 0), thickness=2)
-        cv2.namedWindow("result", cv2.WINDOW_NORMAL)
-        cv2.imshow("result", result)
-        if isOutput:
-            out.write(result)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-    yolo.close_session()
-"""
+
+    def findSameBbox(self, boxes):
+        boxesForDelete = []
+        for box in boxes:
+            for box2 in boxes:
+                if getIntersection(box, box2) > 0.5 and getIntersection(box, box2) != 1:
+                    boxesForDelete.append(box2)
+        return boxesForDelete
+
+def getIntersection(bbox1, bbox2):
+    oldx = range(bbox1[0], bbox1[2])
+    oldy = range(bbox1[1], bbox1[3])
+    newx = range(bbox2[0], bbox2[2])
+    newy = range(bbox2[1], bbox2[3])
+    xintersection = []
+    yintersection = []
+
+    for pixel in newx:
+        if pixel in oldx:
+            xintersection.append(pixel)
+
+    for pixel in newy:
+        if pixel in oldy:
+            yintersection.append(pixel)
+    #print(xintersection)
+    #print(yintersection)
+    if len(xintersection) != 0 and len(yintersection) != 0:
+        sqold = (bbox1[2] - bbox1[0]) * (bbox1[3] - bbox1[1])
+        xintersectionMin = min(xintersection)
+        yintersectionMin = min(yintersection)
+        xintersectionMax = max(xintersection)
+        yintersectionMax = max(yintersection)
+        sqintersection = (xintersectionMax - xintersectionMin) * (yintersectionMax - yintersectionMin)
+
+        k = sqintersection / sqold
+        #print(k)
+        return k
+
+    else:
+        #print('0')
+        return 0
