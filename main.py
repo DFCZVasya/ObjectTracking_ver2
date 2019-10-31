@@ -188,6 +188,9 @@ while True:
 
 # release the file pointers
 print("[INFO] cleaning up...")
+files = glob.glob('output/*.png')
+for f in files:
+	os.remove(f)
 yolo.close_session()
 writer.release()
 vs.release()
