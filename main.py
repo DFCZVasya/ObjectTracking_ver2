@@ -1,5 +1,6 @@
 # import the necessary packages
 import sys
+from PIL import Image
 from yolo import YOLO
 import numpy as np
 import argparse
@@ -114,8 +115,8 @@ while True:
 	# if the frame dimensions are empty, grab them
 	if W is None or H is None:
 		(H, W) = frame.shape[:2]
-
-	image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB);
+	image = Image.fromarray(frame)
+	#image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB);
 
 	outBoxes = yolo.detect_image(image)
 	# construct a blob from the input frame and then perform a forward
