@@ -13,6 +13,7 @@ import cv2
 import os
 import glob
 from objectTracking import ObjectTracking
+from threadClass import ThreadWithReturnValue as thread
 
 files = glob.glob('output/*.png')
 for f in files:
