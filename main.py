@@ -90,14 +90,12 @@ while True:
 	bboxes = []
 
 	if len(outBoxes) > 0:
-		#i = int(0)
 		for box in outBoxes:
 			# extract the bounding box coordinates
 			(x, y) = (int(box[0]), int(box[1]))
 			(w, h) = (int(box[2]), int(box[3]))
 			bbox = [x, y, w, h, box[4]]
 			bboxes.append(bbox)
-			#i += 1
 			cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (0,255,0), 2)
 
 	if len(allObjects) == 0 and len(outBoxes) > 0:
@@ -128,21 +126,14 @@ while True:
 					for object2 in allObjects:
 						if object2.id == idforDelete:
 							allObjects.pop(cc)
-							#print('cc = ' + str(cc))
 							cc += 1
 
 			#draw a bounding box rectangle and label on the image
 			bbox = object1.getbbox()
 			if object1.getcount() == 50:
 				counter += 1
-			#color = [int(c) for c in COLORS[classIDs[i]]]
 			cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (255,0,0), 2)
-
-			#color = [int(c) for c in COLORS[indexIDs[i] % len(COLORS)]]
-			#cv2.rectangle(frame, (object1.bbox[0], object1.bbox[1]), (object1.bbox[2] - object1.bbox[0], object1.bbox[3] - object1.bbox[1]), (255,0,0), 2)
-
-			#text = "{}: classID: {}  confidence: {:.4f}".format(object1.classID, object1.id, object1.probability)
-			#text = "{}".format(indexIDs[i])
+			#text =
 			#cv2.putText(frame, text, (object1.bbox[0], object1.bbox[1] - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,0,0), 2)
 
 	if len(bboxes) > 0:
@@ -154,9 +145,6 @@ while True:
 
 
 	print("--- %s seconds ---" % (time.time() - start_time))
-
-
-
 
 	if resolution == '4k':
 		text = str(len(allObjects)) + ' ' + str(counter)
@@ -174,11 +162,6 @@ while True:
 			(frame.shape[1], frame.shape[0]), True)
 
 		# some information on processing single frame
-		#if total > 0:
-			#elap = (end - start)
-			#print("[INFO] single frame took {:.4f} seconds".format(elap))
-			#print("[INFO] estimated total time to finish: {:.4f}".format(
-			#	elap * total))
 
 	# write the output frame to disk
 	writer.write(frame)

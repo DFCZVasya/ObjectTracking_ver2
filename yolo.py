@@ -124,11 +124,7 @@ class YOLO(object):
                 K.learning_phase(): 0
             })
 
-        #print('Found {} boxes for {}'.format(len(out_boxes), 'img'))
-
-        #font = ImageFont.truetype(font='font/FiraMono-Medium.otf',
-        #            size=np.floor(3e-2 * image.size[1] + 0.5).astype('int32'))
-        thickness = (image.size[0] + image.size[1]) // 300
+        #thickness = (image.size[0] + image.size[1]) // 300
 
         for i, c in reversed(list(enumerate(out_classes))):
             predicted_class = self.class_names[c]
@@ -140,8 +136,6 @@ class YOLO(object):
             left = max(0, np.floor(left + 0.5).astype('int32'))
             bottom = min(image.size[1], np.floor(bottom + 0.5).astype('int32'))
             right = min(image.size[0], np.floor(right + 0.5).astype('int32'))
-            #print(label, (left, top), (right, bottom))
-            #print(str(left) + ' ' + str(top) + ' ' + str(right) + ' ' + str(bottom) + ' ' + predicted_class + ' ' + str(score))
             box = [left,top,right,bottom, predicted_class]
             outBoxes.append(box)
 
@@ -179,8 +173,7 @@ def getIntersection(bbox1, bbox2):
     for pixel in newy:
         if pixel in oldy:
             yintersection.append(pixel)
-    #print(xintersection)
-    #print(yintersection)
+
     if len(xintersection) != 0 and len(yintersection) != 0:
         sqold = (bbox1[2] - bbox1[0]) * (bbox1[3] - bbox1[1])
         xintersectionMin = min(xintersection)
@@ -190,9 +183,7 @@ def getIntersection(bbox1, bbox2):
         sqintersection = (xintersectionMax - xintersectionMin) * (yintersectionMax - yintersectionMin)
 
         k = sqintersection / sqold
-        #print(k)
         return k
 
     else:
-        #print('0')
         return 0
