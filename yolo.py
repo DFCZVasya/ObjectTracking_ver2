@@ -154,7 +154,7 @@ def findSameBbox(boxes):
     boxesForDelete = []
     for box in boxes:
         for box2 in boxes:
-            if getIntersection(box, box2) > 0.5 and box != box2:
+            if box not in boxesForDelete and box != box2 and getIntersection(box, box2) > 0.5:
                 boxesForDelete.append(box2)
     return boxesForDelete
 
