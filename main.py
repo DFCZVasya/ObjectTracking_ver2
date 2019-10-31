@@ -271,11 +271,11 @@ while True:
 			(frame.shape[1], frame.shape[0]), True)
 
 		# some information on processing single frame
-		if total > 0:
-			elap = (end - start)
-			print("[INFO] single frame took {:.4f} seconds".format(elap))
-			print("[INFO] estimated total time to finish: {:.4f}".format(
-				elap * total))
+		#if total > 0:
+			#elap = (end - start)
+			#print("[INFO] single frame took {:.4f} seconds".format(elap))
+			#print("[INFO] estimated total time to finish: {:.4f}".format(
+			#	elap * total))
 
 	# write the output frame to disk
 	writer.write(frame)
