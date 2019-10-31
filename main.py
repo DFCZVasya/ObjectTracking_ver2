@@ -188,5 +188,6 @@ while True:
 
 # release the file pointers
 print("[INFO] cleaning up...")
+yolo.close_session()
 writer.release()
 vs.release()
