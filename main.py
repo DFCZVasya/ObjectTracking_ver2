@@ -101,6 +101,7 @@ while True:
 
 	if len(allObjects) == 0 and len(outBoxes) > 0:
 		for bbox in bboxes:
+			print(bbox[4])
 			box = ObjectTracking(bbox[4])
 			bbox = bbox[:-1]
 			box.createNewID(bbox, allObjects)
@@ -140,6 +141,7 @@ while True:
 
 	if len(bboxes) > 0:
 		for bbox in bboxes:
+			print(bbox[4])
 			box = ObjectTracking(bbox[4])
 			bbox = bbox[:-1]
 			box.createNewID(bbox, allObjects)
