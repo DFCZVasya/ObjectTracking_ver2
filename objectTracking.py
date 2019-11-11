@@ -67,7 +67,7 @@ class ObjectTracking(object) :
         # compute the intersection over union by taking the intersection
         # area and dividing it by the sum of prediction + ground-truth
         # areas - the interesection area
-        iou = interArea / float(boxAArea + boxBArea - interArea)
+        intersection = interArea / float(boxAArea + boxBArea - interArea)
 
         # return the intersection over union value
         return intersection
