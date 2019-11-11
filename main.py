@@ -130,12 +130,13 @@ while True:
 							cc += 1
 
 			#draw a bounding box rectangle and label on the image
-			bbox = object1.getbbox()
-			if object1.getcount() == 50:
+
+			if object1.getcount() == 50 and object1.getClassName() == "person":
 				counter += 1
-			cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (255,0,0), 2)
-			#text =
-			#cv2.putText(frame, text, (object1.bbox[0], object1.bbox[1] - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,0,0), 2)
+				bbox = object1.getbbox()
+				cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (255,0,0), 2)
+				text = 'id = {} classID = {} counter = {}'.format(object1.id, object1.getClassName(), object1.getcount())
+				cv2.putText(frame, text, (object1.bbox[0], object1.bbox[1] - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,0,0), 2)
 
 	if len(bboxes) > 0:
 		for bbox in bboxes:
