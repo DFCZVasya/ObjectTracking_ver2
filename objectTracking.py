@@ -49,34 +49,25 @@ class ObjectTracking(object) :
         return self.classID
 
     def getIntersection(self, newbbox):
-        oldx = range(self.bbox[0], self.bbox[2])
-        oldy = range(self.bbox[1], self.bbox[3])
-        newx = range(newbbox[0], newbbox[2])
-        newy = range(newbbox[1], newbbox[3])
-        xintersection = []
-        yintersection = []
+        boxA = self.bbox
+        boxB = newbbox
+        xA = max(boxA[0], boxB[0])
+        yA = max(boxA[1], boxB[1])
+        xB = min(boxA[2], boxB[2])
+        yB = min(boxA[3], boxB[3])
 
-        for pixel in newx:
-            if pixel in oldx:
-                xintersection.append(pixel)
+        # compute the area of intersection rectangle
+        interArea = max(0, xB - xA + 1) * max(0, yB - yA + 1)
 
-        for pixel in newy:
-            if pixel in oldy:
-                yintersection.append(pixel)
-        #print(xintersection)
-        #print(yintersection)
-        if len(xintersection) != 0 and len(yintersection) != 0:
-            sqold = (self.bbox[2] - self.bbox[0]) * (self.bbox[3] - self.bbox[1])
-            xintersectionMin = min(xintersection)
-            yintersectionMin = min(yintersection)
-            xintersectionMax = max(xintersection)
-            yintersectionMax = max(yintersection)
-            sqintersection = (xintersectionMax - xintersectionMin) * (yintersectionMax - yintersectionMin)
+        # compute the area of both the prediction and ground-truth
+        # rectangles
+        boxAArea = (boxA[2] - boxA[0] + 1) * (boxA[3] - boxA[1] + 1)
+        boxBArea = (boxB[2] - boxB[0] + 1) * (boxB[3] - boxB[1] + 1)
 
-            k = sqintersection / sqold
-            #print(k)
-            return k
+        # compute the intersection over union by taking the intersection
+        # area and dividing it by the sum of prediction + ground-truth
+        # areas - the interesection area
+        iou = interArea / float(boxAArea + boxBArea - interArea)
 
-        else:
-            #print('0')
-            return 0
+        # return the intersection over union value
+        return intersection
