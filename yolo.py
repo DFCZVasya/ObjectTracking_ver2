@@ -128,7 +128,7 @@ class YOLO(object):
 
         for i, c in reversed(list(enumerate(out_classes))):
             predicted_class = self.class_names[c]
-            print(predicted_class)
+            #print(predicted_class)
             box = out_boxes[i]
             score = out_scores[i]
 
