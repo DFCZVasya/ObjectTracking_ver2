@@ -159,31 +159,25 @@ def findSameBbox(boxes):
     return boxesForDelete
 
 def getIntersection(bbox1, bbox2):
-    oldx = range(bbox1[0], bbox1[2])
-    oldy = range(bbox1[1], bbox1[3])
-    newx = range(bbox2[0], bbox2[2])
-    newy = range(bbox2[1], bbox2[3])
-    xintersection = []
-    yintersection = []
+    boxA = bbox1
+    boxB = bbox2
+    xA = max(boxA[0], boxB[0])
+    yA = max(boxA[1], boxB[1])
+    xB = min(boxA[2], boxB[2])
+    yB = min(boxA[3], boxB[3])
 
-    for pixel in newx:
-        if pixel in oldx:
-            xintersection.append(pixel)
+    # compute the area of intersection rectangle
+    interArea = max(0, xB - xA + 1) * max(0, yB - yA + 1)
 
-    for pixel in newy:
-        if pixel in oldy:
-            yintersection.append(pixel)
+    # compute the area of both the prediction and ground-truth
+    # rectangles
+    boxAArea = (boxA[2] - boxA[0] + 1) * (boxA[3] - boxA[1] + 1)
+    boxBArea = (boxB[2] - boxB[0] + 1) * (boxB[3] - boxB[1] + 1)
 
-    if len(xintersection) != 0 and len(yintersection) != 0:
-        sqold = (bbox1[2] - bbox1[0]) * (bbox1[3] - bbox1[1])
-        xintersectionMin = min(xintersection)
-        yintersectionMin = min(yintersection)
-        xintersectionMax = max(xintersection)
-        yintersectionMax = max(yintersection)
-        sqintersection = (xintersectionMax - xintersectionMin) * (yintersectionMax - yintersectionMin)
+    # compute the intersection over union by taking the intersection
+    # area and dividing it by the sum of prediction + ground-truth
+    # areas - the interesection area
+    intersection = interArea / float(boxAArea + boxBArea - interArea)
 
-        k = sqintersection / sqold
-        return k
-
-    else:
-        return 0
+    # return the intersection over union value
+    return intersection
