@@ -46,7 +46,7 @@ class ObjectTracking(object) :
         return self.bbox
 
     def getClassName(self):
-        print(self.classID)
+        #print(self.classID)
         return self.classID
 
     def getIntersection(self, newbbox):
