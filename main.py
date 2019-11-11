@@ -101,7 +101,7 @@ while True:
 
 	if len(allObjects) == 0 and len(outBoxes) > 0:
 		for bbox in bboxes:
-			print(bbox[4])
+			#print(bbox[4])
 			box = ObjectTracking(bbox[4])
 			bbox = bbox[:-1]
 			box.createNewID(bbox, allObjects)
@@ -132,7 +132,7 @@ while True:
 
 			#draw a bounding box rectangle and label on the image
 
-			if object1.getcount() == 50 and object1.getClassName() == "person":
+			if object1.getcount() == 10 and object1.getClassName() == "person":
 				counter += 1
 				bbox = object1.getbbox()
 				cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (255,0,0), 2)
@@ -141,7 +141,7 @@ while True:
 
 	if len(bboxes) > 0:
 		for bbox in bboxes:
-			print(bbox[4])
+			#print(bbox[4])
 			box = ObjectTracking(bbox[4])
 			bbox = bbox[:-1]
 			box.createNewID(bbox, allObjects)
