@@ -140,10 +140,10 @@ class YOLO(object):
             box = [left,top,right,bottom, predicted_class]
             outBoxes.append(box)
 
-        boxesForDelete = findSameBbox(outBoxes)
-        for box in boxesForDelete:
-            if box in outBoxes:
-                outBoxes.remove(box)
+        #boxesForDelete = findSameBbox(outBoxes)
+        #for box in boxesForDelete:
+        #    if box in outBoxes:
+        #        outBoxes.remove(box)
 
         return outBoxes
 
