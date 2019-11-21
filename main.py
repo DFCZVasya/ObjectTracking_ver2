@@ -138,7 +138,10 @@ while True:
 			if object1.getClassName() == "person":
 				counter += 1
 				meancounter.append(counter)
-			mCount =int(np.mean(meancounter))
+			try:
+				mCount =int(np.mean(meancounter))
+			except:
+				mCount = 0
 			bbox = object1.getbbox()
 			cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (255,0,0), 2)
 			text = 'id = {} classID = {} counter = {}'.format(object1.id, object1.getClassName(), object1.getcount())
