@@ -31,6 +31,8 @@ counter = 0
 count =0
 counterb = 0
 counterh = 0
+meancounter = []
+mCount = 0
 
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
@@ -135,6 +137,8 @@ while True:
 			#object1.getcount() == 30 and
 			if object1.getClassName() == "person":
 				counter += 1
+				meancounter.append(counter)
+			mCount =int(np.mean(meancounter))
 			bbox = object1.getbbox()
 			cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (255,0,0), 2)
 			text = 'id = {} classID = {} counter = {}'.format(object1.id, object1.getClassName(), object1.getcount())
@@ -152,10 +156,10 @@ while True:
 	print("--- %s seconds ---" % (time.time() - start_time))
 
 	if resolution == '4k':
-		text = str(len(allObjects)) + ' ' + str(counter)
+		text = str(len(allObjects)) + ' ' + str(counter) + ' ' + str(mCount)
 		font = cv2.FONT_HERSHEY_SIMPLEX
 		#cv2.putText(frame, str(len(allObjects)), (50,50), font, 2, (243, 132, 68), 4, cv2.LINE_AA)
-		cv2.putText(frame, text, (100,200), font, 2, (0, 0, 255), 4, cv2.LINE_AA)
+		cv2.putText(frame, text, (100,300), font, 2, (0, 0, 255), 4, cv2.LINE_AA)
 
 	cv2.imwrite("output/frame-{}.png".format(frameIndex), frame)
 
