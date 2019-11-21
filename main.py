@@ -132,7 +132,7 @@ while True:
 
 			#draw a bounding box rectangle and label on the image
 
-			if object1.getcount() == 10 and object1.getClassName() == "person":
+			if object1.getcount() == 30 and object1.getClassName() == "person":
 				counter += 1
 			bbox = object1.getbbox()
 			cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (255,0,0), 2)
