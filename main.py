@@ -2,12 +2,12 @@
 import sys
 from PIL import Image
 from yolo import YOLO
-import numpy as np
+#import numpy as np
 import argparse
-import imutils
-import tensorflow as tf
-from keras import backend as K
-from keras.utils import multi_gpu_model
+#import imutils
+#import tensorflow as tf
+#from keras import backend as K
+#from keras.utils import multi_gpu_model
 import time
 import cv2
 import os
