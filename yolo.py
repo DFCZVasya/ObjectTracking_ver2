@@ -18,7 +18,7 @@ from yolo3.utils import letterbox_image
 import os
 from keras.utils import multi_gpu_model
 
-from main import __defaults
+#from main import __defaults
 
 class YOLO(object):
     _defaults = {
@@ -39,7 +39,7 @@ class YOLO(object):
             return "Unrecognized attribute name '" + n + "'"
 
     def __init__(self, **kwargs):
-        self.__dict__.update(self.__defaults) # set up default values
+        self.__dict__.update(self._defaults) # set up default values
         self.__dict__.update(kwargs) # and update with user overrides
         print('!!!!!!!!!! ' + self.model_path)
         self.class_names = self._get_class()
@@ -64,7 +64,7 @@ class YOLO(object):
     def generate(self):
         model_path = os.path.expanduser(self.model_path)
         assert model_path.endswith('.h5'), 'Keras model or weights must be a .h5 file.'
-
+        print('!!!!!!!!!! ' model_path)
         # Load model, or construct model and load weights.
         num_anchors = len(self.anchors)
         num_classes = len(self.class_names)

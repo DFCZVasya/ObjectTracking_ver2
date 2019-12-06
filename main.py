@@ -73,7 +73,6 @@ parser.add_argument(
 	help = "[Optional] Video output path"
 )
 FLAGS = parser.parse_args()
-
 __defaults = {
         "model_path": FLAGS.model,
         "anchors_path": FLAGS.anchors,
