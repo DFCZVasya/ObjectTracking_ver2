@@ -80,8 +80,8 @@ writer = None
 (W, H) = (None, None)
 # load our YOLO object detector trained on COCO dataset (80 classes)
 yolo = YOLO(**vars(FLAGS))
-#print(args["anchors"])
-#print(args["model"])
+print(FLAGS.anchors)
+print(FLAGS.model)
 #yolo.anchors = args["anchors"]
 #yolo.model_path = args["model"]
 
