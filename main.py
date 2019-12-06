@@ -34,6 +34,7 @@ counterh = 0
 meancounter = []
 mCount = 0
 
+"""
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--input", required=True,
@@ -51,17 +52,60 @@ ap.add_argument('--model', type=str,
 ap.add_argument('--anchors', type=str,
         help='path to anchor definitions, default ' + YOLO.get_defaults("anchors_path"))
 args = vars(ap.parse_args())
+"""
 
+parser = argparse.ArgumentParser(argument_default=argparse.SUPPRESS)
+    '''
+    Command line options
+    '''
+parser.add_argument(
+	'--model', type=str,
+	help='path to model weight file, default ' + YOLO.get_defaults("model_path")
+)
+
+parser.add_argument(
+	'--anchors', type=str,
+	help='path to anchor definitions, default ' + YOLO.get_defaults("anchors_path")
+)
+
+parser.add_argument(
+	'--classes', type=str,
+	help='path to class definitions, default ' + YOLO.get_defaults("classes_path")
+)
+
+parser.add_argument(
+	'--gpu_num', type=int,
+	help='Number of GPU to use, default ' + str(YOLO.get_defaults("gpu_num"))
+)
+
+parser.add_argument(
+	'--image', default=False, action="store_true",
+	help='Image detection mode, will ignore all positional arguments'
+)
+'''
+Command line positional arguments -- for video detection mode
+'''
+parser.add_argument(
+	"--input", nargs='?', type=str,required=False,default='input/outfile.webm',
+	help = "Video input path"
+)
+
+parser.add_argument(
+	"--output", nargs='?', type=str, default="output/outfile.avi",
+	help = "[Optional] Video output path"
+)
+
+    FLAGS = parser.parse_args()
 # frame dimensions
-vs = cv2.VideoCapture(args["input"])
+vs = cv2.VideoCapture(FLAGS.input)
 writer = None
 (W, H) = (None, None)
 # load our YOLO object detector trained on COCO dataset (80 classes)
-yolo = YOLO()
-print(args["anchors"])
-print(args["model"])
-yolo.anchors = args["anchors"]
-yolo.model_path = args["model"]
+yolo = YOLO(**vars(FLAGS))
+#print(args["anchors"])
+#print(args["model"])
+#yolo.anchors = args["anchors"]
+#yolo.model_path = args["model"]
 
 frameIndex = 0
 #howto = str(input("Please input what need found: "))
@@ -178,7 +222,7 @@ while True:
 	if writer is None:
 		# initialize our video writer
 		fourcc = cv2.VideoWriter_fourcc(*"MJPG")
-		writer = cv2.VideoWriter(args["output"], fourcc, 30,
+		writer = cv2.VideoWriter(FLAGS.output, fourcc, 30,
 			(frame.shape[1], frame.shape[0]), True)
 
 		# some information on processing single frame

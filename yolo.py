@@ -43,6 +43,8 @@ class YOLO(object):
         self.anchors = self._get_anchors()
         self.sess = K.get_session()
         self.boxes, self.scores, self.classes = self.generate()
+        self.model_path = model_path
+
 
     def _get_class(self):
         classes_path = os.path.expanduser(self.classes_path)
