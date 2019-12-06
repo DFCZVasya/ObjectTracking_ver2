@@ -1,7 +1,7 @@
 # import the necessary packages
 import sys
 from PIL import Image
-
+from yolo import YOLO
 #import numpy as np
 import argparse
 #import imutils
@@ -73,7 +73,8 @@ parser.add_argument(
 	help = "[Optional] Video output path"
 )
 FLAGS = parser.parse_args()
-_defaults = {
+
+__defaults = {
         "model_path": FLAGS.model,
         "anchors_path": FLAGS.anchors,
         "classes_path": 'model_data/coco_classes.txt',
@@ -83,7 +84,7 @@ _defaults = {
         "gpu_num" : 1,
     }
 
-from yolo import YOLO
+
 # frame dimensions
 vs = cv2.VideoCapture(FLAGS.input)
 writer = None
