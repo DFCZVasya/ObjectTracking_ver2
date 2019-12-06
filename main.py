@@ -46,6 +46,10 @@ ap.add_argument("-o", "--output", required=True,
 #	help="minimum probability to filter weak detections")
 #ap.add_argument("-t", "--threshold", type=float, default=0.3,
 #	help="threshold when applyong non-maxima suppression")
+ap.add_argument('--model', type=str,
+        help='path to model weight file, default ' + YOLO.get_defaults("model_path"))
+ap.add_argument('--anchors', type=str,
+        help='path to anchor definitions, default ' + YOLO.get_defaults("anchors_path"))
 args = vars(ap.parse_args())
 
 # frame dimensions
@@ -54,6 +58,8 @@ writer = None
 (W, H) = (None, None)
 # load our YOLO object detector trained on COCO dataset (80 classes)
 yolo = YOLO()
+yolo.anchors = args["anchors"]
+yolo.model_path = args["model"]
 
 frameIndex = 0
 #howto = str(input("Please input what need found: "))
@@ -158,11 +164,11 @@ while True:
 
 	print("--- %s seconds ---" % (time.time() - start_time))
 
-	if resolution == '4k':
-		text = str(len(allObjects)) + ' ' + str(counter) + ' ' + str(mCount)
-		font = cv2.FONT_HERSHEY_SIMPLEX
-		#cv2.putText(frame, str(len(allObjects)), (50,50), font, 2, (243, 132, 68), 4, cv2.LINE_AA)
-		cv2.putText(frame, text, (100,300), font, 2, (0, 0, 255), 4, cv2.LINE_AA)
+	#if resolution == '4k':
+	text = str(len(allObjects)) + ' ' + str(counter) + ' ' + str(mCount)
+	font = cv2.FONT_HERSHEY_SIMPLEX
+	#cv2.putText(frame, str(len(allObjects)), (50,50), font, 2, (243, 132, 68), 4, cv2.LINE_AA)
+	cv2.putText(frame, text, (100,300), font, 2, (0, 0, 255), 4, cv2.LINE_AA)
 
 	cv2.imwrite("output/frame-{}.png".format(frameIndex), frame)
 
