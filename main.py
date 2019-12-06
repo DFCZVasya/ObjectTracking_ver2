@@ -34,25 +34,6 @@ counterh = 0
 meancounter = []
 mCount = 0
 
-"""
-# construct the argument parse and parse the arguments
-ap = argparse.ArgumentParser()
-ap.add_argument("-i", "--input", required=True,
-	help="path to input video")
-ap.add_argument("-o", "--output", required=True,
-	help="path to output video")
-#ap.add_argument("-y", "--yolo", required=True,
-#	help="base path to YOLO directory")
-#ap.add_argument("-c", "--confidence", type=float, default=0.5,
-#	help="minimum probability to filter weak detections")
-#ap.add_argument("-t", "--threshold", type=float, default=0.3,
-#	help="threshold when applyong non-maxima suppression")
-ap.add_argument('--model', type=str,
-        help='path to model weight file, default ' + YOLO.get_defaults("model_path"))
-ap.add_argument('--anchors', type=str,
-        help='path to anchor definitions, default ' + YOLO.get_defaults("anchors_path"))
-args = vars(ap.parse_args())
-"""
 
 parser = argparse.ArgumentParser(argument_default=argparse.SUPPRESS)
     '''
