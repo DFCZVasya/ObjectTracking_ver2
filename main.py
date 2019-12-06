@@ -36,9 +36,6 @@ mCount = 0
 
 
 parser = argparse.ArgumentParser(argument_default=argparse.SUPPRESS)
-    '''
-    Command line options
-    '''
 parser.add_argument(
 	'--model', type=str,
 	help='path to model weight file, default ' + YOLO.get_defaults("model_path")
