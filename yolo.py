@@ -18,26 +18,20 @@ from yolo3.utils import letterbox_image
 import os
 from keras.utils import multi_gpu_model
 
+from main import _defaults
+
 class YOLO(object):
-    _defaults = {
-        "model_path": 'model_data/yolo-tiny.h5',
-        "anchors_path": 'model_data/tiny_yolo_anchors.txt',
-        "classes_path": 'model_data/coco_classes.txt',
-        "score" : 0.3,
-        "iou" : 0.45,
-        "model_image_size" : (416, 416),
-        "gpu_num" : 1,
-    }
+    
 
     @classmethod
     def get_defaults(cls, n):
-        if n in cls._defaults:
-            return cls._defaults[n]
+        if n in _defaults:
+            return _defaults[n]
         else:
             return "Unrecognized attribute name '" + n + "'"
 
     def __init__(self, **kwargs):
-        self.__dict__.update(self._defaults) # set up default values
+        self.__dict__.update(_defaults) # set up default values
         self.__dict__.update(kwargs) # and update with user overrides
         print('!!!!!!!!!! ' + self.model_path)
         self.class_names = self._get_class()

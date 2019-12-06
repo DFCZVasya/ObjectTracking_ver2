@@ -73,6 +73,16 @@ parser.add_argument(
 	help = "[Optional] Video output path"
 )
 
+_defaults = {
+        "model_path": FLAGS.model,
+        "anchors_path": FLAGS.anchors,
+        "classes_path": 'model_data/coco_classes.txt',
+        "score" : 0.3,
+        "iou" : 0.45,
+        "model_image_size" : (416, 416),
+        "gpu_num" : 1,
+    }
+
 FLAGS = parser.parse_args()
 # frame dimensions
 vs = cv2.VideoCapture(FLAGS.input)
