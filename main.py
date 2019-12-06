@@ -73,7 +73,7 @@ parser.add_argument(
 	help = "[Optional] Video output path"
 )
 
-    FLAGS = parser.parse_args()
+FLAGS = parser.parse_args()
 # frame dimensions
 vs = cv2.VideoCapture(FLAGS.input)
 writer = None
